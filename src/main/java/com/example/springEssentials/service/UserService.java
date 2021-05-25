@@ -42,7 +42,7 @@ public class UserService {
             return repository.findById(id)
                     .map(record -> {
                         record.setName(user.getName());
-                        record.setBirthday(user.getBirthday());
+                        record.setEmail(user.getEmail());
                         User userUpdated = repository.save(record);
                         return userUpdated;
                     }).orElse(null);

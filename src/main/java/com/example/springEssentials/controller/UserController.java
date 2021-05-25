@@ -5,7 +5,7 @@ import com.example.springEssentials.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/")
+@RequestMapping(value = "/user")
 public class UserController {
 
     private UserService service;
@@ -14,33 +14,33 @@ public class UserController {
         this.service = service;
     }
 
-    @RequestMapping("server")
+    @RequestMapping("/about")
     public String hello() {
         return "Service for Spring Essentials";
     }
 
-    @GetMapping
+    @GetMapping("/findAll")
     public Iterable<User> findAll(){
         return service.findAll();
     }
 
-    @GetMapping(path = {"{id}"})
+    @GetMapping(path = {"/findById/{id}"})
     public User findById(@PathVariable long id){
         return service.findById(id);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public User create(@RequestBody User user){
         return service.create(user);
     }
 
-    @PutMapping(value="/{id}")
+    @PutMapping(value="/update/{id}")
     public User update(@PathVariable("id") long id,
                                  @RequestBody User user) {
         return service.update(id, user);
     }
 
-    @DeleteMapping(path ={"{id}"})
+    @DeleteMapping(path ={"/delete/{id}"})
     public Long delete(@PathVariable long id) {
         return service.delete(id);
     }

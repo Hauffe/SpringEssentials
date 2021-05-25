@@ -22,11 +22,11 @@ public class User {
     private Long id;
     @Column(name = "NAME")
     private String name;
-    @Column(name = "BIRTHDAY")
-    private Date birthday;
+    @Column(name = "EMAIL")
+    private String email;
 
-    public User(String name, Date birthday) {
+    public User(String name, String email) {
         this.name = name;
-        this.birthday = birthday;
+        this.email = email;
     }
 }
