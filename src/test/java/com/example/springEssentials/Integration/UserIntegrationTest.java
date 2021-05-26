@@ -1,10 +1,10 @@
-package com.example.springEssentials;
+package com.example.springEssentials.Integration;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringEssentialsApplicationTests {
+class UserIntegrationTest {
 
 	@Test
 	void contextLoads() {

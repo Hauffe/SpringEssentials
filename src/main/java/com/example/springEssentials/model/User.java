@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "USER")
-public class User {
+public class User{
 
     @Id
     @GeneratedValue

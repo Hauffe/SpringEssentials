@@ -4,6 +4,8 @@ import com.example.springEssentials.model.User;
 import com.example.springEssentials.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
@@ -20,7 +22,7 @@ public class UserController {
     }
 
     @GetMapping("/findAll")
-    public Iterable<User> findAll(){
+    public List<User> findAll(){
         return service.findAll();
     }
 
