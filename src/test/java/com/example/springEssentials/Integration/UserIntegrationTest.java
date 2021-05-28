@@ -43,7 +43,7 @@ class UserIntegrationTest {
 		//Act
 		ResponseEntity responseEntity = testRestTemplate
 				.withBasicAuth("user", "password")
-				.postForEntity("/user/add", users.get(0), User.class);
+				.postForEntity("/users", users.get(0), User.class);
 		User user = (User) responseEntity.getBody();
 
 		//Assert
@@ -59,13 +59,13 @@ class UserIntegrationTest {
 		//Arrange
 		testRestTemplate
 				.withBasicAuth("user", "password")
-				.postForEntity("/user/add", users.get(1), User.class);
+				.postForEntity("/users", users.get(1), User.class);
 
 		//Act
 		ResponseEntity userListResponse =
 				testRestTemplate
 						.withBasicAuth("user", "password")
-						.getForEntity("/user/findAll", List.class);
+						.getForEntity("/users", List.class);
 		List<User> usersRetrieved = (List<User>) userListResponse.getBody();
 
 		//Assert
@@ -81,9 +81,9 @@ class UserIntegrationTest {
 				Arrays.asList(objectMapper
 						.readValue(testRestTemplate
 										.withBasicAuth("user", "password")
-										.getForEntity("/user/findAll", String.class)
+										.getForEntity("/users", String.class)
 										.getBody(), User[].class));
-		String url = "/user/findById/"+usersRetrieved.get(0).getId();
+		String url = "/users/"+usersRetrieved.get(0).getId();
 
 		//Act
 		ResponseEntity userRetrievedResponse =
@@ -107,10 +107,10 @@ class UserIntegrationTest {
 				Arrays.asList(objectMapper
 						.readValue(testRestTemplate
 								.withBasicAuth("user", "password")
-								.getForEntity("/user/findAll", String.class)
+								.getForEntity("/users", String.class)
 								.getBody(), User[].class));
-		String putUrl = "/user/update/"+usersRetrieved.get(1).getId();
-		String getUrl = "/user/findById/"+usersRetrieved.get(1).getId();
+		String putUrl = "/users/"+usersRetrieved.get(1).getId();
+		String getUrl = "/users/"+usersRetrieved.get(1).getId();
 		usersRetrieved.get(1).setName("Margaret");
 
 		//Act
@@ -138,11 +138,11 @@ class UserIntegrationTest {
 				Arrays.asList(objectMapper
 						.readValue(testRestTemplate
 								.withBasicAuth("user", "password")
-								.getForEntity("/user/findAll", String.class)
+								.getForEntity("/users", String.class)
 								.getBody(), User[].class));
-		String deleteUrlUser1 = "/user/delete/"+usersRetrieved.get(0).getId();
-		String deleteUrlUser2 = "/user/delete/"+usersRetrieved.get(1).getId();
-		String getAllUrl = "/user/findAll/";
+		String deleteUrlUser1 = "/users/"+usersRetrieved.get(0).getId();
+		String deleteUrlUser2 = "/users/"+usersRetrieved.get(1).getId();
+		String getAllUrl = "/users/";
 
 		//Act
 		testRestTemplate
