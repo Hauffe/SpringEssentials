@@ -9,6 +9,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -37,8 +38,4 @@ public class User{
         return Objects.equals(name, user.name) && Objects.equals(email, user.email);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, email);
-    }
 }
