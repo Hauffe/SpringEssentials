@@ -1,4 +1,4 @@
-package com.example.springEssentials.Integration;
+package com.example.springEssentials;
 
 import com.example.springEssentials.model.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class UserIntegrationTest {
+public class UserIT {
 
 	@Autowired
 	private TestRestTemplate testRestTemplate;
@@ -80,9 +80,9 @@ class UserIntegrationTest {
 		List<User> usersRetrieved =
 				Arrays.asList(objectMapper
 						.readValue(testRestTemplate
-										.withBasicAuth("user", "password")
-										.getForEntity("/users", String.class)
-										.getBody(), User[].class));
+								.withBasicAuth("user", "password")
+								.getForEntity("/users", String.class)
+								.getBody(), User[].class));
 		String url = "/users/"+usersRetrieved.get(0).getId();
 
 		//Act

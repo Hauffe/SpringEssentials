@@ -15,6 +15,8 @@
 	<description>Spring essentials assignment</description>
 	<properties>
 		<java.version>11</java.version>
+		<integrationSourceDirectory>src\testIntegration</integrationSourceDirectory>
+		<integrationOutputDirectory>target\testIntegration</integrationOutputDirectory>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -64,6 +66,25 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>add-integration-test-source</id>
+						<phase>generate-test-sources</phase>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/integration-test/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 		<finalName>springEssentials-docker</finalName>
