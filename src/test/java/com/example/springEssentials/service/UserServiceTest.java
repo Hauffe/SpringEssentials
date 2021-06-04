@@ -31,11 +31,11 @@ class UserServiceTest {
     @Test
     void findAll() {
         //Arrange
-        List<User> users = prepareList();
+        var users = prepareList();
         Mockito.when(repository.findAll()).thenReturn(users);
 
         //Act
-        Iterable<User> response = this.userService.findAll();
+        var response = this.userService.findAll();
 
         //Assert
         assertNotNull(response);
@@ -45,11 +45,11 @@ class UserServiceTest {
     @Test
     void findById() {
         //Arrange
-        User userMock = prepareUser();
+        var userMock = prepareUser();
         Mockito.when(repository.findById(1L)).thenReturn(Optional.of(userMock));
 
         //Act
-        User response = this.userService.findById(1L);
+        var response = this.userService.findById(1L);
 
         //Assert
         assertNotNull(response);
@@ -59,14 +59,14 @@ class UserServiceTest {
     @Test
     void update(){
         //Arrange
-        User oldUser = prepareUser();
-        User userMock = prepareUser();
+        var oldUser = prepareUser();
+        var userMock = prepareUser();
         userMock.setName("Margaret");
         Mockito.when(repository.findById(1L)).thenReturn(Optional.of(userMock));
         Mockito.when(repository.save(userMock)).thenReturn(userMock);
 
         //Act
-        User response = this.userService.update(1L, userMock);
+        var response = this.userService.update(1L, userMock);
 
         //Assert
         assertNotNull(response);
@@ -78,12 +78,12 @@ class UserServiceTest {
     @Test
     void create() {
         //Arrange
-        User userMock = prepareUser();
+        var userMock = prepareUser();
         Mockito.when(repository.save(userMock))
                 .thenReturn(userMock);
 
         //Act
-        User user = userService.create(userMock);
+        var user = userService.create(userMock);
 
         //Assert
         assertNotNull(user);
@@ -99,7 +99,6 @@ class UserServiceTest {
     }
 
     private User prepareUser(){
-        User user = new User(1L, "user1", "test@test.com");
-        return user;
+        return new User(1L, "user1", "test@test.com");
     }
 }

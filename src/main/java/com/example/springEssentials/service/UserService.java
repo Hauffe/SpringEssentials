@@ -12,7 +12,6 @@ import java.util.List;
 @Service
 public class UserService {
 
-    @Autowired
     private final UserRepository repository;
 
     @Autowired
@@ -21,13 +20,11 @@ public class UserService {
     }
 
     public List<User> findAll(){
-        log.info("'findAll' called");
         return (List<User>) repository.findAll();
     }
 
     public User findById(Long id){
-        log.info("'findById' method called with Id= {} ", id);
-        User user = repository.findById(id).orElse(null);
+        var user = repository.findById(id).orElse(null);
 
         if(user == null)
             log.warn("Can't findById with id {} from repository ", id);
@@ -38,7 +35,6 @@ public class UserService {
     public User create(User user){
         User userCreated = null;
         String message = testObject(user);
-        log.info("'create' method called with user= {} ", user);
 
         if(!"".equals(message))
             log.error("Can't save {} in repository because {}", user, message);
@@ -48,27 +44,8 @@ public class UserService {
         return userCreated;
     }
 
-    public Long delete(Long id){
-        log.info("'delete' method called with user id= {} ", id);
-
-        Long idDeleted = repository.findById(id)
-                .map(record -> {
-                    repository.deleteById(id);
-                    return id;
-                }).orElse(null);
-
-
-        if(idDeleted == null)
-            log.warn("Can't findById with id {} from repository ", id);
-
-        return idDeleted;
-    }
-
-
     public User update(long id, User user) {
-        log.info("'update' method called with book= {} and id= {}", user, id);
-
-        User userToUpdate = repository.findById(id)
+        var userToUpdate = repository.findById(id)
                 .map(record -> {
                     record.setName(user.getName());
                     record.setEmail(user.getEmail());
@@ -81,6 +58,20 @@ public class UserService {
             log.error("Can't update user id={} to user={} in repository", id, user);
 
             return userToUpdate;
+    }
+
+    public Long delete(Long id){
+        var idDeleted = repository.findById(id)
+                .map(record -> {
+                    repository.deleteById(id);
+                    return id;
+                }).orElse(null);
+
+
+        if(idDeleted == null)
+            log.warn("Can't findById with id {} from repository ", id);
+
+        return idDeleted;
     }
 
     private String testObject(User user){

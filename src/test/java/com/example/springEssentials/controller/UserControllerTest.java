@@ -32,7 +32,7 @@ class UserControllerTest {
     @Test
     void hello() {
         //Act
-        String hello = this.userController.hello();
+        var hello = this.userController.hello();
 
         //Assert
         assertEquals(hello, "Service for Spring Essentials");
@@ -41,12 +41,12 @@ class UserControllerTest {
     @Test
     void findAll() {
         //Arrange
-        List<User> userMock = prepareList();
+        var userMock = prepareList();
         Mockito.when(userService.findAll()).thenReturn(userMock);
 
         //Act
-        ResponseEntity responseEntity = this.userController.findAll();
-        List<User> response = (List<User>) responseEntity.getBody();
+        var responseEntity = this.userController.findAll();
+        var response = (List<User>) responseEntity.getBody();
 
         //Assert
         assertEquals(ResponseEntity.ok().build().getStatusCode(), responseEntity.getStatusCode());
@@ -63,8 +63,8 @@ class UserControllerTest {
         Mockito.when(userService.findAll()).thenReturn(userMock);
 
         //Act
-        ResponseEntity responseEntity = this.userController.findAll();
-        List<User> response = (List<User>) responseEntity.getBody();
+        var responseEntity = this.userController.findAll();
+        var response = responseEntity.getBody();
 
         //Assert
         assertEquals(ResponseEntity.ok().build().getStatusCode(), responseEntity.getStatusCode());
@@ -74,12 +74,12 @@ class UserControllerTest {
     @Test
     void findById() {
         //Arrange
-        User userMock = prepareUser();
+        var userMock = prepareUser();
         Mockito.when(userService.findById(1L)).thenReturn(userMock);
 
         //Act
-        ResponseEntity responseEntity = this.userController.findById(1L);
-        User response = (User) responseEntity.getBody();
+        var responseEntity = this.userController.findById(1L);
+        var response = responseEntity.getBody();
 
         //Assert
         assertEquals(ResponseEntity.ok().build().getStatusCode(), responseEntity.getStatusCode());
@@ -94,7 +94,7 @@ class UserControllerTest {
         Mockito.when(userService.findById(1L)).thenReturn(null);
 
         //Act
-        ResponseEntity responseEntity = this.userController.findById(1L);
+        var responseEntity = this.userController.findById(1L);
 
         //Assert
         assertEquals(ResponseEntity.notFound().build().getStatusCode(), responseEntity.getStatusCode());
@@ -103,13 +103,13 @@ class UserControllerTest {
     @Test
     void create() {
         //Arrange
-        User userMock = prepareUser();
+        var userMock = prepareUser();
         Mockito.when(userService.create(userMock))
                 .thenReturn(userMock);
 
         //Act
-        ResponseEntity responseEntity = userController.create(userMock);
-        User user = (User) responseEntity.getBody();
+        var responseEntity = userController.create(userMock);
+        var user = responseEntity.getBody();
 
         //Assert
         assertEquals(ResponseEntity.ok().build().getStatusCode(), responseEntity.getStatusCode());
@@ -120,7 +120,7 @@ class UserControllerTest {
     @Test
     void createEmpty() {
         //Act
-        ResponseEntity responseEntity = this.userController.create(null);
+        var responseEntity = this.userController.create(null);
 
         //Assert
         assertEquals(ResponseEntity.noContent().build().getStatusCode(), responseEntity.getStatusCode());
@@ -129,13 +129,13 @@ class UserControllerTest {
     @Test
     void update(){
         //Arrange
-        User userMock = prepareUser();
+        var userMock = prepareUser();
         userMock.setName("Margaret");
         Mockito.when(userService.update(userMock.getId(), userMock)).thenReturn(userMock);
 
         //Act
-        ResponseEntity responseEntity = this.userController.update(userMock.getId(), userMock);
-        User response = (User) responseEntity.getBody();
+        var responseEntity = this.userController.update(userMock.getId(), userMock);
+        var response = responseEntity.getBody();
 
         //Assert
         assertEquals(ResponseEntity.ok().build().getStatusCode(), responseEntity.getStatusCode());
@@ -150,8 +150,8 @@ class UserControllerTest {
         Mockito.when(userService.delete(1L)).thenReturn(1L);
 
         //Act
-        ResponseEntity responseEntity = this.userController.delete(1L);
-        Long deletedId = (Long) responseEntity.getBody();
+        var responseEntity = this.userController.delete(1L);
+        var deletedId = responseEntity.getBody();
 
         //Assert
         assertEquals(ResponseEntity.ok().build().getStatusCode(), responseEntity.getStatusCode());
@@ -165,8 +165,8 @@ class UserControllerTest {
         Mockito.when(userService.delete(1L)).thenReturn(null);
 
         //Act
-        ResponseEntity responseEntity = this.userController.delete(1L);
-        Long deletedId = (Long) responseEntity.getBody();
+        var responseEntity = this.userController.delete(1L);
+        var deletedId = responseEntity.getBody();
 
         //Assert
         assertNull(deletedId);
@@ -181,8 +181,7 @@ class UserControllerTest {
     }
 
     private User prepareUser(){
-        User user = new User(1L, "user1", "test@test.com");
-        return user;
+        return new User(1L, "user1", "test@test.com");
     }
 
 }

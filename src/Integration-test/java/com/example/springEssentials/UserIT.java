@@ -41,10 +41,10 @@ public class UserIT {
 	@Order(1)
 	void createUser() {
 		//Act
-		ResponseEntity responseEntity = testRestTemplate
+		var responseEntity = testRestTemplate
 				.withBasicAuth("user", "password")
 				.postForEntity("/users", users.get(0), User.class);
-		User user = (User) responseEntity.getBody();
+		var user = responseEntity.getBody();
 
 		//Assert
 		assertEquals(ResponseEntity.ok().build().getStatusCode(), responseEntity.getStatusCode());
@@ -62,11 +62,11 @@ public class UserIT {
 				.postForEntity("/users", users.get(1), User.class);
 
 		//Act
-		ResponseEntity userListResponse =
+		var userListResponse =
 				testRestTemplate
 						.withBasicAuth("user", "password")
 						.getForEntity("/users", List.class);
-		List<User> usersRetrieved = (List<User>) userListResponse.getBody();
+		var usersRetrieved = userListResponse.getBody();
 
 		//Assert
 		assertNotNull(usersRetrieved);
@@ -77,20 +77,20 @@ public class UserIT {
 	@Order(3)
 	void getOneUser() throws JsonProcessingException {
 		//Arrange
-		List<User> usersRetrieved =
+		var usersRetrieved =
 				Arrays.asList(objectMapper
 						.readValue(testRestTemplate
 								.withBasicAuth("user", "password")
 								.getForEntity("/users", String.class)
 								.getBody(), User[].class));
-		String url = "/users/"+usersRetrieved.get(0).getId();
+		var url = "/users/"+usersRetrieved.get(0).getId();
 
 		//Act
-		ResponseEntity userRetrievedResponse =
+		var userRetrievedResponse =
 				testRestTemplate
 						.withBasicAuth("user", "password")
 						.getForEntity(url, User.class);
-		User userRetrieved = (User) userRetrievedResponse.getBody();
+		var userRetrieved = userRetrievedResponse.getBody();
 
 		//Assert
 		assertEquals(ResponseEntity.ok().build().getStatusCode(), userRetrievedResponse.getStatusCode());
@@ -103,25 +103,25 @@ public class UserIT {
 	@Order(4)
 	void update() throws JsonProcessingException {
 		//Arrange
-		List<User> usersRetrieved =
+		var usersRetrieved =
 				Arrays.asList(objectMapper
 						.readValue(testRestTemplate
 								.withBasicAuth("user", "password")
 								.getForEntity("/users", String.class)
 								.getBody(), User[].class));
-		String putUrl = "/users/"+usersRetrieved.get(1).getId();
-		String getUrl = "/users/"+usersRetrieved.get(1).getId();
+		var putUrl = "/users/"+usersRetrieved.get(1).getId();
+		var getUrl = "/users/"+usersRetrieved.get(1).getId();
 		usersRetrieved.get(1).setName("Margaret");
 
 		//Act
 		testRestTemplate
 				.withBasicAuth("user", "password")
 				.put(putUrl, usersRetrieved.get(1));
-		ResponseEntity userRetrievedEntity =
+		var userRetrievedEntity =
 				testRestTemplate
 						.withBasicAuth("user", "password")
 						.getForEntity(getUrl, User.class);
-		User userUpdated = (User) userRetrievedEntity.getBody();
+		var userUpdated = userRetrievedEntity.getBody();
 
 		//Assert
 		assertEquals(ResponseEntity.ok().build().getStatusCode(), userRetrievedEntity.getStatusCode());
@@ -134,15 +134,15 @@ public class UserIT {
 	@Order(5)
 	void deleteUser() throws JsonProcessingException {
 		//Arrange
-		List<User> usersRetrieved =
+		var usersRetrieved =
 				Arrays.asList(objectMapper
 						.readValue(testRestTemplate
 								.withBasicAuth("user", "password")
 								.getForEntity("/users", String.class)
 								.getBody(), User[].class));
-		String deleteUrlUser1 = "/users/"+usersRetrieved.get(0).getId();
-		String deleteUrlUser2 = "/users/"+usersRetrieved.get(1).getId();
-		String getAllUrl = "/users/";
+		var deleteUrlUser1 = "/users/"+usersRetrieved.get(0).getId();
+		var deleteUrlUser2 = "/users/"+usersRetrieved.get(1).getId();
+		var getAllUrl = "/users/";
 
 		//Act
 		testRestTemplate
@@ -151,11 +151,11 @@ public class UserIT {
 		testRestTemplate
 				.withBasicAuth("user", "password")
 				.delete(deleteUrlUser2);
-		ResponseEntity userRetrievedEntity =
+		var userRetrievedEntity =
 				testRestTemplate
 						.withBasicAuth("user", "password")
 						.getForEntity(getAllUrl, List.class);
-		usersRetrieved  = (List<User>) userRetrievedEntity.getBody();
+		usersRetrieved  = userRetrievedEntity.getBody();
 
 		//Assert
 		assertEquals(ResponseEntity.ok().build().getStatusCode(), userRetrievedEntity.getStatusCode());
