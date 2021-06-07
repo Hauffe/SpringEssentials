@@ -8,7 +8,6 @@ import java.util.Objects;
 
 @Entity
 @Data
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
